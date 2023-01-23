@@ -8,9 +8,9 @@ import requests
 
 load_dotenv()
 
-digitalocean_token = os.getenv("DIGITALOCEAN_TOKEN")
-discord_token = os.getenv("DISCORD_TOKEN")
-my_guild = os.getenv("DISCORD_GUILD")
+DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+DISCORD_GUILD = os.getenv("DISCORD_GUILD")
 
 #discord_allowed_role_id = os.environ.get("discord_allowed_role_id")
 # digitalocean_droplet_id = os.environ.get("digitalocean_droplet_id")
