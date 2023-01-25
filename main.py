@@ -46,7 +46,7 @@ def prettify_droplet_list_output(droplet_dict):
         {f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}
         {f'♻️ !reboot {d_id}' if d_status == 'active' else ''}
             """
-        droplet_message += "```"
+    droplet_message += "```"
     return droplet_message
 
 def cmd_digitalocean(cmd, droplet_id):
