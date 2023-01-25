@@ -31,7 +31,6 @@ def prettify_droplet_list_output(droplet_dict):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 """
-    
     for droplet in droplet_dict['droplets']:
         
         d_id = droplet['id']
@@ -42,17 +41,20 @@ def prettify_droplet_list_output(droplet_dict):
         d_ext_ip = d_networks["v4"][0]['ip_address']
         d_int_ip = d_networks["v4"][1]['ip_address']
 
-        droplet_message += f"""{'🟢' if d_status == 'available' else '🟥'}{d_name}@{d_location} (id:{d_id})
-        🏠 ext:{d_ext_ip}, int:{d_int_ip}"""
+        droplet_message += f"""{'🟢' if d_status == 'active' else '🟥'}{d_name}@{d_location} (id:{d_id})
+        🏠 ext:{d_ext_ip}, int:{d_int_ip}
+        {f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}
+        {f'♻️ !reboot {d_id}' if d_status == 'active' else ''}
+            """
         droplet_message += "```"
     return droplet_message
 
-def reboot_digitalocean():
-    data = {"type": "reboot"}
-    endpoint = f'https://api.digitalocean.com/v2/droplets/{digitalocean_droplet_id}/actions'
+def cmd_digitalocean(cmd, droplet_id):
+    data = {"type": cmd}
+    endpoint = f'https://api.digitalocean.com/v2/droplets/{droplet_id}/actions'
     headers = {"Authorization": f"Bearer {DIGITALOCEAN_TOKEN}"}
     response = requests.post(endpoint, data=data, headers=headers)
-    if (response.status_code == 201):
+    if (response.status_code == 200):
         print("Success")
     else:
         print(response.status_code)
@@ -80,12 +82,20 @@ def text_message():
 @client.event
 async def on_message(message):
     if message.content.startswith('!reboot'):
-        author_role_ids = [y.id for y in message.author.roles]
-        if int(discord_allowed_role_id) in author_role_ids:
-            reboot_digitalocean()
-            await message.channel.send('Rebooting...')
-        else:
-            print(author_role_ids)
+        _, droplet_id = message.content.split(" ")
+        cmd_digitalocean('reboot', droplet_id)
+        await message.channel.send(f'`rebooting box {droplet_id}...`')
+
+    elif message.content.startswith('!start'):
+        _, droplet_id = message.content.split(" ")
+        cmd_digitalocean('power_on', droplet_id)
+        await message.channel.send(f'`starting box {droplet_id}...`')
+    
+    elif message.content.startswith('!stop'):
+        _, droplet_id = message.content.split(" ")
+        cmd_digitalocean('shutdown', droplet_id)
+        await message.channel.send(f'`attempting graceful shutdown of box {droplet_id}...`')
+
     elif message.content.startswith('!ping'):
         author_role_ids = [y.id for y in message.author.roles]
         if int(discord_allowed_role_id) in author_role_ids:
