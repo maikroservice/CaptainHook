@@ -56,10 +56,7 @@ def cmd_digitalocean(cmd, droplet_id):
     endpoint = f'https://api.digitalocean.com/v2/droplets/{droplet_id}/actions'
     headers = {"Authorization": f"Bearer {DIGITALOCEAN_TOKEN}"}
     response = requests.post(endpoint, data=data, headers=headers)
-    if (response.status_code == 200):
-        print("Success")
-    else:
-        print(response.status_code)
+    return response.status_code
 
 def list_droplets():
     endpoint = f'https://api.digitalocean.com/v2/droplets?page=1&per_page=10'
@@ -85,18 +82,18 @@ def text_message():
 async def on_message(message):
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
-        cmd_digitalocean('reboot', droplet_id)
-        await message.channel.send(f'`rebooting box {droplet_id}...`')
+        statuscode = cmd_digitalocean('reboot', droplet_id)
+        await message.channel.send(f'`HTTP{statuscode} - rebooting box {droplet_id}...`')
 
     elif message.content.startswith('!start'):
         _, droplet_id = message.content.split(" ")
-        cmd_digitalocean('power_on', droplet_id)
-        await message.channel.send(f'`starting box {droplet_id}...`')
+        statuscode = cmd_digitalocean('power_on', droplet_id)
+        await message.channel.send(f'`HTTP{statuscode} - starting box {droplet_id}...`')
     
     elif message.content.startswith('!stop'):
         _, droplet_id = message.content.split(" ")
-        cmd_digitalocean('shutdown', droplet_id)
-        await message.channel.send(f'`attempting graceful shutdown of box {droplet_id}...`')
+        statuscode = cmd_digitalocean('shutdown', droplet_id)
+        await message.channel.send(f'`{statuscode} - attempting graceful shutdown of box {droplet_id}...`')
 
     elif message.content.startswith('!ping'):
         author_role_ids = [y.id for y in message.author.roles]
