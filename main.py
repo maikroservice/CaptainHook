@@ -38,8 +38,8 @@ def prettify_droplet_list_output(droplet_dict):
         d_location = droplet['region']['name'] 
         d_status = droplet['status']
         d_networks = droplet['networks']
-        d_ext_ip = d_networks["v4"][0]['ip_address']
-        d_int_ip = d_networks["v4"][1]['ip_address']
+        d_ext_ip = d_networks["v4"][1]['ip_address']
+        d_int_ip = d_networks["v4"][0]['ip_address']
 
         droplet_message += f"""{'🟢' if d_status == 'active' else '🟥'}{d_name}@{d_location} (id:{d_id})
         🏠 ext:{d_ext_ip}, int:{d_int_ip}
