@@ -58,26 +58,26 @@ def text_message():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith('^reboot'):
+    if message.content.startswith('!reboot'):
         author_role_ids = [y.id for y in message.author.roles]
         if int(discord_allowed_role_id) in author_role_ids:
             reboot_digitalocean()
             await message.channel.send('Rebooting...')
         else:
             print(author_role_ids)
-    elif message.content.startswith('^ping'):
+    elif message.content.startswith('!ping'):
         author_role_ids = [y.id for y in message.author.roles]
         if int(discord_allowed_role_id) in author_role_ids:
             sms_message = text_message()
             await message.channel.send(
                 f'Texting Invictus. Message status: {sms_message}' # Customize to your name
             )  
-    elif message.content.startswith('^test'):
+    elif message.content.startswith('!test'):
         author_role_ids = [y.id for y in message.author.roles]
         if int(discord_allowed_role_id) in author_role_ids:
             await message.channel.send('I am awake...')
 
-    elif message.content.startswith('^list'):
+    elif message.content.startswith('!list'):
         droplets = list_droplets()
         await message.channel.send(f"""```json
 {droplets}
