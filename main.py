@@ -12,12 +12,6 @@ DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 DISCORD_GUILD = os.getenv("DISCORD_GUILD")
 #DISCORD_ALLOWED_ROLE_ID = os.environ.get("DISCORD_ALLOWED_ROLE_ID")
 
-"""
-twilio_token = os.environ.get("twilio_token")
-twilio_account = os.environ.get("twilio_account")
-twilio_phone_number = os.environ.get("twilio_phone_number")
-user_phone_number = os.environ.get("user_phone_number")
-"""
 intents = Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
