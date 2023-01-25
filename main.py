@@ -8,6 +8,8 @@ import requests
 import json
 load_dotenv()
 
+# FIXME: TODO: we need to implement "!startlab or !startall"
+
 DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 DISCORD_GUILD = os.getenv("DISCORD_GUILD")
