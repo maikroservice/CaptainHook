@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
 import discord
 from discord import Intents
-#from twilio.rest import Client
 from discord.ext import commands
 import os
 import requests
-import json
+
 load_dotenv()
 
 # FIXME: TODO: we need to implement "!startlab or !startall"
@@ -13,9 +12,8 @@ load_dotenv()
 DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 DISCORD_GUILD = os.getenv("DISCORD_GUILD")
+#DISCORD_ALLOWED_ROLE_ID = os.environ.get("DISCORD_ALLOWED_ROLE_ID")
 
-#discord_allowed_role_id = os.environ.get("discord_allowed_role_id")
-# digitalocean_droplet_id = os.environ.get("digitalocean_droplet_id")
 """
 twilio_token = os.environ.get("twilio_token")
 twilio_account = os.environ.get("twilio_account")
@@ -25,7 +23,6 @@ user_phone_number = os.environ.get("user_phone_number")
 intents = Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
-#twilio_client = Client(twilio_account, twilio_token)
 
 def prettify_droplet_list_output(droplet_dict):
     droplet_message = """```
@@ -49,7 +46,7 @@ def prettify_droplet_list_output(droplet_dict):
         {f'♻️ !reboot {d_id}' if d_status == 'active' else ''}
             """
     droplet_message += "```"
-    return droplet_message
+    return droplet_message.replace("\t\t","\t")
 
 def cmd_digitalocean(cmd, droplet_id):
     data = {"type": cmd}
@@ -66,17 +63,6 @@ def list_droplets():
         return response.json()
     else:
         return response.status_code
-
-"""
-def text_message():
-    message = twilio_client.messages \
-        .create(
-            body = 'Check Haze Discord.', # Customize the message 
-            from_ = twilio_phone_number, 
-            to = user_phone_number 
-        )
-    return message.status
-"""
 
 @client.event
 async def on_message(message):
@@ -113,18 +99,4 @@ async def on_message(message):
         droplet_message = prettify_droplet_list_output(droplet_dict)
         await message.channel.send(droplet_message)
         
-
-
-"""
-@client.event
-async def on_ready():
-    for guild in client.guilds:
-        if guild.name == DISCORD_GUILD:
-            break
-
-    print(
-        f"{client.user} is connected to the following guild:\n"
-        f"{guild.name}(id: {guild.id})"
-    )
-"""
 client.run(DISCORD_TOKEN)
