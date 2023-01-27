@@ -10,7 +10,8 @@ load_dotenv()
 # FIXME: TODO: we need to implement "!startlab or !startall"
 # TODO: implement VPN file generation/QR code
 # TODO: whisper/private message person requesting
-# TODO: refactor prettify function to use client.command() and context
+# TODO: add VPN sending over private message
+# TODO: refactor prettify function to use client.command() and context?
 
 DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -31,7 +32,6 @@ def prettify_droplet_list_output(droplet_dict):
     embed = discord.Embed(
         title="🧪📦 BlueTeam Lab Status 🧪📦",
         url="https://pwnandprotect.com/",
-        description="Red/Blue/Purple Team Labs",
         color=discord.Color.blue())
 
     for droplet in droplet_dict['droplets']:
