@@ -42,11 +42,11 @@ def prettify_droplet_list_output(droplet_dict):
         d_ext_ip = d_networks["v4"][1]['ip_address']
         d_int_ip = d_networks["v4"][0]['ip_address']
 
-        embed.add_field(name="**Bold**", value=f"{'🟢' if d_status == 'active' else '🟥'}{d_name}@{d_location} (id:{d_id})", inline=False)
-        embed.add_field(name="", value=f"🏠 ext:{d_ext_ip}, int:{d_int_ip}")
-        embed.add_field(name="", value=f"{f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}")
-        embed.add_field(name="", value=f"{f'♻️ !reboot {d_id}' if d_status == 'active' else ''}")
-    embed.set_footer(text="@kazmsec, @maikroservice")
+        embed.add_field(name=f"**{d_name}@{d_location}**", value=f"{'🟢' if d_status == 'active' else '🟥'} (id:{d_id})", inline=False)
+        embed.add_field(name="🏠", value=f" ext:{d_ext_ip}, int:{d_int_ip}", inline=False)
+        embed.add_field(name="", value=f"{f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}", inline=False)
+        embed.add_field(name="", value=f"{f'♻️ !reboot {d_id}' if d_status == 'active' else ''}", inline=False)
+    embed.set_footer(text="Lab by @kazmsec + @maikroservice")
 
     #embed.set_author(name="RealDrewData", url="", icon_url="")
     #embed.set_author(name=ctx.author.display_name, url="", icon_url=ctx.author.avatar_url)
