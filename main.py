@@ -77,7 +77,8 @@ def list_droplets():
         return response.status_code
 
 @client.event
-async def on_message(message):
+@client.command()
+async def on_message(message, ctx):
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
         statuscode = cmd_digitalocean('reboot', droplet_id)
@@ -109,6 +110,6 @@ async def on_message(message):
         droplet_dict = list_droplets()
         
         droplet_message = prettify_droplet_list_output(droplet_dict)
-        await message.channel.send(droplet_message)
+        await message.channel.send(embed=droplet_message)
         
 client.run(DISCORD_TOKEN)
