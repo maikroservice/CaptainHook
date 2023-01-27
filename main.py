@@ -8,6 +8,9 @@ import requests
 load_dotenv()
 
 # FIXME: TODO: we need to implement "!startlab or !startall"
+# TODO: implement VPN file generation/QR code
+# TODO: whisper/private message person requesting
+# TODO: refactor prettify function to use client.command() and context
 
 DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
@@ -77,8 +80,7 @@ def list_droplets():
         return response.status_code
 
 @client.event
-@client.command()
-async def on_message(message, ctx):
+async def on_message(message):
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
         statuscode = cmd_digitalocean('reboot', droplet_id)
@@ -110,6 +112,6 @@ async def on_message(message, ctx):
         droplet_dict = list_droplets()
         
         droplet_message = prettify_droplet_list_output(droplet_dict)
-        await ctx.send(embed=droplet_message)
+        await message.channel.send(embed=droplet_message)
         
 client.run(DISCORD_TOKEN)
