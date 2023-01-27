@@ -18,8 +18,12 @@ My Cloud Labs are hosted on DigitalOcean and we are building a bot so that users
 4. `DISCORD_GUILD`: The ID of the Discord Server you want to connect to.
 
 ## TODO
-- implement startall / stopall function
+- implement startall (or startlab) / stopall (or stoplab) function
 - implement forcedshutdown
-- implement vpn generation command?
+- implement vpn generation/QR code command?
 - implement copying of the whole stack for individuals
 - hard reset option (in case a user bricked something)
+- whisper/private message person requesting command
+- add VPN sending over private message
+- refactor prettify function to use client.command() and context PRIO 10000
+- BUILD LAB services
