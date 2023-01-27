@@ -110,6 +110,6 @@ async def on_message(message, ctx):
         droplet_dict = list_droplets()
         
         droplet_message = prettify_droplet_list_output(droplet_dict)
-        await message.channel.send(embed=droplet_message)
+        await ctx.send(embed=droplet_message)
         
 client.run(DISCORD_TOKEN)
