@@ -25,11 +25,10 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 def prettify_droplet_list_output(droplet_dict):
-    droplet_message = """```
-  🧪📦 BlueTeam Lab Status 🧪📦
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    embed = discord.Embed(
+    title="🧪📦 BlueTeam Lab Status 🧪📦",
+        color=discord.Color.blue())
 
-"""
     for droplet in droplet_dict['droplets']:
         
         d_id = droplet['id']
@@ -40,13 +39,26 @@ def prettify_droplet_list_output(droplet_dict):
         d_ext_ip = d_networks["v4"][1]['ip_address']
         d_int_ip = d_networks["v4"][0]['ip_address']
 
-        droplet_message += f"""{'🟢' if d_status == 'active' else '🟥'}{d_name}@{d_location} (id:{d_id})
-        🏠 ext:{d_ext_ip}, int:{d_int_ip}
-        {f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}
-        {f'♻️ !reboot {d_id}' if d_status == 'active' else ''}
-            """
-    droplet_message += "```"
-    return droplet_message.replace("\t\t","\t")
+        embed.add_field(name="**Bold**", value=f"{'🟢' if d_status == 'active' else '🟥'}{d_name}@{d_location} (id:{d_id})", inline=False)
+        embed.add_field(name="", value=f"🏠 ext:{d_ext_ip}, int:{d_int_ip}")
+        embed.add_field(name="", value=f"{f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}")
+        embed.add_field(name="", value=f"{f'♻️ !reboot {d_id}' if d_status == 'active' else ''}")
+
+    #embed.set_author(name="RealDrewData", url="", icon_url="")
+    #embed.set_author(name=ctx.author.display_name, url="", icon_url=ctx.author.avatar_url)
+    #embed.set_thumbnail(url="")
+    """
+    embed.add_field(name="*Italics*", value="Surround your text in asterisks (\*)", inline=False)
+    embed.add_field(name="**Bold**", value="Surround your text in double asterisks (\*\*)", inline=False)
+    embed.add_field(name="__Underline__", value="Surround your text in double underscores (\_\_)", inline=False)
+    embed.add_field(name="~~Strikethrough~~", value="Surround your text in double tildes (\~\~)", inline=False)
+    embed.add_field(name="`Code Chunks`", value="Surround your text in backticks (\`)", inline=False)
+    embed.add_field(name="Blockquotes", value="> Start your text with a greater than symbol (\>)", inline=False)
+    embed.add_field(name="Secrets", value="||Surround your text with double pipes (\|\|)||", inline=False)
+    embed.set_footer(text="Learn more here: ")
+    """
+
+    return embed
 
 def cmd_digitalocean(cmd, droplet_id):
     data = {"type": cmd}
