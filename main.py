@@ -46,6 +46,7 @@ def prettify_droplet_list_output(droplet_dict):
         embed.add_field(name="", value=f"🏠 ext:{d_ext_ip}, int:{d_int_ip}")
         embed.add_field(name="", value=f"{f'▶️ !start {d_id}' if d_status != 'active' else f'⏹️ !stop {d_id}'}")
         embed.add_field(name="", value=f"{f'♻️ !reboot {d_id}' if d_status == 'active' else ''}")
+    embed.set_footer(text="@kazmsec, @maikroservice")
 
     #embed.set_author(name="RealDrewData", url="", icon_url="")
     #embed.set_author(name=ctx.author.display_name, url="", icon_url=ctx.author.avatar_url)
