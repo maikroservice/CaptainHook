@@ -12,6 +12,10 @@ def verify_gumroad_license(license_key):
         return False
     
     elif (r["success"] == True) and (r["uses"] < 2):
+        # https://docs.replit.com/tutorials/python/discord-role-bot
+        # add user to SOC Analyst 101 Discord Group
+        # TODO: read "group" from verification product
+        
         return True
     
     else:

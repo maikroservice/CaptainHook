@@ -17,6 +17,8 @@ GUMROAD_PRODUCT_ID = os.getenv("GUMROAD_PRODUCT_ID")
 intents = Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix="!")
+
 
 @client.event
 async def on_message(message):
@@ -24,7 +26,16 @@ async def on_message(message):
     if message.content.startswith('!verify'):
         _, gumroad_key = message.content.split(" ")
         gumroad_key_verified = verify_gumroad_license(gumroad_key)
-        await message.channel.send(f'`Verification - {gumroad_key_verified}`')
+        if gumroad_key_verified:
+            server = bot.get_guild(SERVER_ID)
+
+            roles = [discord.utils.get(server.roles, name=language.lower()) for language in languages]
+
+            member = await server.fetch_member(message.author.id)
+            
+
+
+        await message.channel.send(f'`Verification - {gumroad_key_verified} - roles:{roles} ID:{member}` ')
 
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
