@@ -17,7 +17,7 @@ GUMROAD_PRODUCT_ID = os.getenv("GUMROAD_PRODUCT_ID")
 intents = Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix="!", intents=intents)
 
 
 @client.event
