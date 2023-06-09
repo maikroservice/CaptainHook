@@ -8,10 +8,10 @@ def verify_gumroad_license(license_key):
                       data={"product_id":GUMROAD_PRODUCT_ID, 
                             "license_key":license_key}).json()
     
-    if not r.success:
+    if not r["success"]:
         return False
     
-    elif (r.success == True) and (r.uses < 2):
+    elif (r["success"] == True) and (r["uses"] < 2):
         return True
     
     else:
