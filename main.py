@@ -34,11 +34,11 @@ async def on_message(message):
 
             #roles = [discord.utils.get(server.roles)]
 
-            member = await server.fetch_member(message.author.id)
+            #member = await server.fetch_member(message.author.id)
             
 
 
-        await message.channel.send(f'`Verification - {gumroad_key_verified} - server:{server} ID:{member}` ')
+        await message.channel.send(f'`Verification - {gumroad_key_verified} - server:{server}` ')
 
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
