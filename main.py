@@ -26,11 +26,12 @@ async def on_message(message):
     if message.content.startswith('!verify'):
         _, gumroad_key = message.content.split(" ")
         gumroad_key_verified = verify_gumroad_license(gumroad_key)
-        if gumroad_key_verified:
+        server = bot.get_guild(message.guild.id)
+        #if gumroad_key_verified:
             # https://docs.replit.com/tutorials/python/discord-role-bot
         # add user to SOC Analyst 101 Discord Group
         # TODO: read "group" from verification product
-            server = bot.get_guild(message.guild.id)
+            
 
             #roles = [discord.utils.get(server.roles)]
 
