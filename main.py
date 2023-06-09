@@ -34,11 +34,12 @@ async def on_ready():
     takenGuild = bot.get_guild(DISCORD_GUILD_ID)
     print(takenGuild.id)
 
-    for guild in bot.guilds:
-        print(guild)
-        print(guild.id)
+    for g in bot.guilds:
+        print(g)
+        print(g.id)
         for role in guild.roles:
-            print(role, role.id)
+            if role == "SOC Analyst 101":
+                print(role, role.id)
 
 
 @bot.event
