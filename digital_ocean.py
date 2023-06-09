@@ -1,4 +1,11 @@
 import requests
+import os
+import discord
+
+DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+DISCORD_GUILD = os.getenv("DISCORD_GUILD")
+
 
 def prettify_droplet_list_output(droplet_dict):
     embed = discord.Embed(
