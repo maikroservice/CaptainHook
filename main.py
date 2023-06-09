@@ -32,7 +32,7 @@ async def on_message(message):
         # TODO: read "group" from verification product
             server = bot.get_guild(DISCORD_GUILD)
 
-            roles = [discord.utils.get(server.roles, name=language.lower()) for language in languages]
+            roles = [discord.utils.get(server.roles)]
 
             member = await server.fetch_member(message.author.id)
             
