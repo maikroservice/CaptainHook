@@ -32,13 +32,13 @@ async def on_message(message):
         # TODO: read "group" from verification product
             server = bot.get_guild(DISCORD_GUILD)
 
-            roles = [discord.utils.get(server.roles)]
+            #roles = [discord.utils.get(server.roles)]
 
             member = await server.fetch_member(message.author.id)
             
 
 
-        await message.channel.send(f'`Verification - {gumroad_key_verified} - roles:{roles} ID:{member}` ')
+        await message.channel.send(f'`Verification - {gumroad_key_verified} - server:{server} ID:{member}` ')
 
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
