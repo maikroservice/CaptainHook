@@ -1,4 +1,7 @@
 import requests
+import os
+
+GUMROAD_PRODUCT_ID = os.getenv("GUMROAD_PRODUCT_ID")
 
 def verify_gumroad_license(license_key):
     r = requests.post("https://api.gumroad.com/v2/licenses/verify",
