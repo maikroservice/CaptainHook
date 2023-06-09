@@ -30,7 +30,7 @@ async def on_message(message):
             # https://docs.replit.com/tutorials/python/discord-role-bot
         # add user to SOC Analyst 101 Discord Group
         # TODO: read "group" from verification product
-            server = bot.get_guild(DISCORD_GUILD)
+            server = bot.get_guild(message.channel.guild.id)
 
             #roles = [discord.utils.get(server.roles)]
 
