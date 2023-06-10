@@ -8,5 +8,5 @@ def verify_gumroad_license(GUMROAD_PRODUCT_ID, license_key):
     if(r["uses"] > 1): 
        return "Key already used - contact @maikroservice"
     elif not r["uses"]:
-        return "Something went Wrong"
+        return False
     return r["success"] and not r["purchase"]["refunded"]
