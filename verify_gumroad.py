@@ -5,8 +5,8 @@ def verify_gumroad_license(GUMROAD_PRODUCT_ID, license_key):
                       data={"product_id":GUMROAD_PRODUCT_ID, 
                             "license_key":license_key}).json()
     print(r)
-    #if(r["uses"] > 1): 
-    #   return "Key already used - contact @maikroservice"
+    if r["success"] and (r["uses"] > 1): 
+       return "Key already used - contact @maikroservice"
     #if not r["uses"]:
     #    return False
     return r["success"] and not r["purchase"]["refunded"]
