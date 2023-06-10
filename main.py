@@ -66,7 +66,7 @@ async def verify(ctx, gumroad_key):
 #@bot.command(pass_context=True)
 async def on_message(message):
 
-    if message.content.startswith('!verify'):
+    if message.content.startswith('!Fverify'):
         _, gumroad_key = message.content.split(" ")
         gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
