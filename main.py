@@ -59,7 +59,7 @@ async def verify(ctx, gumroad_key: str):
         #role = get(message.server.roles, name='SOC Analyst 101')
         guild = bot.get_guild(DISCORD_GUILD_ID)
         soc101 = guild.get_role(DISCORD_SOC101_ROLE_ID)
-        await ctx.author.add_roles(soc101)
+        await ctx.member.add_roles(soc101)
 
         # https://docs.replit.com/tutorials/python/discord-role-bot
     # add user to SOC Analyst 101 Discord Group
