@@ -50,25 +50,24 @@ async def joined(ctx, member: discord.Member):
 
 
 @bot.command(pass_context=True)
-async def verify(ctx, message):
+async def verify(ctx, gumroad_key: str):
 
-    if message.content.startswith('!verify'):
-        _, gumroad_key = message.content.split(" ")
-        gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
+    gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
-        if gumroad_key_verified:
-            #role = get(message.server.roles, name='SOC Analyst 101')
-            soc101 = await guild.get_role(DISCORD_SOC101_ROLE_ID)
-            await bot.add_roles(message.author, soc101)
+    if gumroad_key_verified:
+        #role = get(message.server.roles, name='SOC Analyst 101')
+        soc101 = await guild.get_role(DISCORD_SOC101_ROLE_ID)
+        await bot.add_roles(ctx.author, soc101)
 
-            # https://docs.replit.com/tutorials/python/discord-role-bot
-        # add user to SOC Analyst 101 Discord Group
-        # TODO: read "group" from verification product
-            #roles = [discord.utils.get(server.roles)]
-            #member = await server.fetch_member(message.author.id)
-        await message.reply(f'`Verification - {gumroad_key_verified}` ')
+        # https://docs.replit.com/tutorials/python/discord-role-bot
+    # add user to SOC Analyst 101 Discord Group
+    # TODO: read "group" from verification product
+        #roles = [discord.utils.get(server.roles)]
+        #member = await server.fetch_member(message.author.id)
+    await message.reply(f'`Verification - {gumroad_key_verified}` ')
 
+async def on_message(message):
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
         statuscode = cmd_digitalocean('reboot', droplet_id)
