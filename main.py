@@ -39,7 +39,7 @@ async def on_ready():
     for g in bot.guilds:
         print(g)
         print(g.id)
-        for role in guild.roles:
+        for role in g.roles:
             if role == "SOC Analyst 101":
                 print(role, role.id)
 
