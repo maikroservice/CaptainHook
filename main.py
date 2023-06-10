@@ -43,30 +43,16 @@ async def on_ready():
             if role == "SOC Analyst 101":
                 print(role, role.id)
 
-
 @bot.command()
-async def verify(ctx, gumroad_key):
-    if isinstance(ctx.channel, discord.DMChannel):
-        is_valid = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
-        if is_valid:
-            role = discord.utils.get(ctx.guild.roles, id=DISCORD_SOC101_ROLE_ID)
-            if role:
-                member = ctx.author
-                await member.add_roles(role)
-                await ctx.send('Congratulations! Your Key was verified and you now have access to the SOC Analyst 101 Channel.')
-            else:
-                await ctx.send('Oops! Something went wrong with role assignment.')
-        else:
-            await ctx.send('Sorry, the product key is invalid.')
-    else:
-        await ctx.send('Please use the verification command in a direct message with the bot.')
+async def joined(ctx, member: discord.Member):
+    """Says when a member joined."""
+    await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
 
-@bot.event
-#@bot.command(pass_context=True)
-async def on_message(message):
+@bot.command(pass_context=True)
+async def verify(ctx, message):
 
-    if message.content.startswith('!Fverify'):
+    if message.content.startswith('!verify'):
         _, gumroad_key = message.content.split(" ")
         gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
@@ -81,7 +67,7 @@ async def on_message(message):
         # TODO: read "group" from verification product
             #roles = [discord.utils.get(server.roles)]
             #member = await server.fetch_member(message.author.id)
-        await message.channel.send(f'`Verification - {gumroad_key_verified}` ')
+        await message.reply(f'`Verification - {gumroad_key_verified}` ')
 
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
