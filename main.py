@@ -68,7 +68,7 @@ async def verify(ctx, gumroad_key: str):
     # TODO: read "group" from verification product
         #roles = [discord.utils.get(server.roles)]
         #member = await server.fetch_member(message.author.id)
-    await ctx.reply(f'`Verification - {gumroad_key_verified}` ')
+    await ctx.reply(f'`Verification completed - {gumroad_key_verified}` if `True` you have a new role now - SOC Analyst 101')
 
 async def on_message(message):
     if message.content.startswith('!reboot'):
