@@ -57,7 +57,8 @@ async def verify(ctx, gumroad_key: str):
         
     if gumroad_key_verified:
         #role = get(message.server.roles, name='SOC Analyst 101')
-        soc101 = await guild.get_role(DISCORD_SOC101_ROLE_ID)
+        guild = bot.get_guild(DISCORD_GUILD_ID)
+        soc101 = guild.get_role(DISCORD_SOC101_ROLE_ID)
         await bot.add_roles(ctx.author, soc101)
 
         # https://docs.replit.com/tutorials/python/discord-role-bot
