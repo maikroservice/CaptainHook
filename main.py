@@ -57,7 +57,7 @@ async def verify(ctx, gumroad_key: str):
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
-    if gumroad_key_verified["verification"]:
+    if gumroad_key_verified["verification"] == True:
         #role = get(message.server.roles, name='SOC Analyst 101')
         guild = bot.get_guild(DISCORD_GUILD_ID)
         soc101 = guild.get_role(DISCORD_SOC101_ROLE_ID)
@@ -72,9 +72,10 @@ async def verify(ctx, gumroad_key: str):
 
         # if all went well the verification is complete and we can share that with the user
 
-    logging.info(gumroad_key_verified)
-    print(gumroad_key_verified)
-    await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
+    else:
+        logging.info(gumroad_key_verified)
+        print(gumroad_key_verified)
+        await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
 
 @verify.error
 async def verify_error(ctx, error):
