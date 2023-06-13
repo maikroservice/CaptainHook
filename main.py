@@ -8,11 +8,13 @@ from digital_ocean import *
 import logging
 import sys
 
-logging.basicConfig(stream=sys.stdout, 
-                    level=logging.INFO,
-                    format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-)
+date_strftime_format = "%d-%b-%y %H:%M:%S"
+message_format = "%(asctime)s - %(levelname)s - %(message)s"
+
+logging.basicConfig(format=message_format, 
+                    datefmt=date_strftime_format, 
+                    stream=sys.stdout)
+
 
 load_dotenv()
 
