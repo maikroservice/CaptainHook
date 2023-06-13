@@ -6,6 +6,9 @@ import os
 from verify_gumroad import verify_gumroad_license
 from digital_ocean import *
 import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 load_dotenv()
 
