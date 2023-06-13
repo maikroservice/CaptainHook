@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 import discord
 from discord import Intents
 from discord.ext import commands
-from discord.utils import get
 import os
 from verify_gumroad import verify_gumroad_license
 from digital_ocean import *
