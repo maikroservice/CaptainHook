@@ -8,7 +8,9 @@ from digital_ocean import *
 import logging
 import sys
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO,  format='[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
+logging.basicConfig(stream=sys.stdout, 
+                    level=logging.INFO,
+                        format='%(asctime)s.%(msecs)03d %(levelname)s %(module)s - %(funcName)s: %(message)s',
 )
 
 load_dotenv()
