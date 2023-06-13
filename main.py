@@ -7,7 +7,7 @@ import os
 from verify_gumroad import verify_gumroad_license
 from digital_ocean import *
 import logging
-
+from discord.ext.commands.errors import MissingRequiredArgument
 
 load_dotenv()
 
@@ -51,7 +51,7 @@ async def joined(ctx, member: discord.Member):
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
 
-@bot.command(pass_context=True)
+@bot.command()
 async def verify(ctx, gumroad_key: str):
     # this is super ugly error handling but it should work
     try:
