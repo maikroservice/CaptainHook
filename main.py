@@ -53,11 +53,7 @@ async def joined(ctx, member: discord.Member):
 
 @bot.command()
 async def verify(ctx, gumroad_key: str):
-    # this is super ugly error handling but it should work
-    try:
-        _ = gumroad_key
-    except MissingRequiredArgument:
-        return await ctx.reply(f'Verification needs a key - use !verify <YOUR_KEY_HERE>')
+    
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     print(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
@@ -81,6 +77,12 @@ async def verify(ctx, gumroad_key: str):
     logging.info(gumroad_key_verified)
     print(gumroad_key_verified)
     await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
+
+@verify.error
+async def verify_error(ctx, error):
+    # https://stackoverflow.com/questions/67874947/how-to-check-if-required-argument-is-missing-in-discord-py
+    if isinstance(error, commands.MissingRequiredArgument):
+        return await ctx.reply(f'Verification needs a key - use !verify <YOUR_KEY_HERE>')
 
 async def on_message(message):
     if message.content.startswith('!reboot'):
