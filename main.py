@@ -8,7 +8,8 @@ from digital_ocean import *
 import logging
 import sys
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stdout, level=logging.INFO,  format='[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
+)
 
 load_dotenv()
 
@@ -31,20 +32,20 @@ guild = bot.get_guild(DISCORD_GUILD_ID)
 
 @bot.event
 async def on_ready():
-    print("I am running on " + bot.user.name)
-    print("With the ID: " + str(bot.user.id))
-    print('Bot is ready to be used')
+    logging.debug("I am running on " + bot.user.name)
+    logging.debug("With the ID: " + str(bot.user.id))
+    logging.debug('Bot is ready to be used')
    # after it is ready do it
 
     takenGuild = bot.get_guild(DISCORD_GUILD_ID)
-    print(takenGuild.id)
+    logging.debug(takenGuild.id)
 
     for g in bot.guilds:
-        print(g)
-        print(g.id)
+        logging.debug(g)
+        logging.debug(g.id)
         for role in g.roles:
             if role == "SOC Analyst 101":
-                print(role, role.id)
+                logging.debug(role, role.id)
 
 @bot.command()
 async def joined(ctx, member: discord.Member):
@@ -56,7 +57,7 @@ async def joined(ctx, member: discord.Member):
 async def verify(ctx, gumroad_key: str):
     
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
-    print(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
+    
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
@@ -77,7 +78,7 @@ async def verify(ctx, gumroad_key: str):
 
     else:
         logging.info(gumroad_key_verified)
-        print(gumroad_key_verified)
+        
         await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
 
 @verify.error

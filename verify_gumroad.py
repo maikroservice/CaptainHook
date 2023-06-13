@@ -1,14 +1,19 @@
 import requests
 import logging
+import sys
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
 def verify_gumroad_license(GUMROAD_PRODUCT_ID, license_key):
     r = requests.post("https://api.gumroad.com/v2/licenses/verify",
                       data={"product_id":GUMROAD_PRODUCT_ID, 
                             "license_key":license_key}).json()
-    logging.info(f'license key: {license_key} - response: {r}')
-    if r["success"] and (r["uses"] > 1): 
-       return {"verification": False, "message":f"Key ({license_key}) already used - contact @maikroservice"}
-    elif not r["uses"]:
+    logging.debug(f'license key: {license_key} - response: {r}')
+    
+    
+    if not r["success"]:
         return {"verification":False, "message":f"Key ({license_key}) could not be verified, check the key in gumroad"}
+    elif r["success"] and (r["uses"] > 1): 
+       return {"verification": False, "message":f"Key ({license_key}) already used - contact @maikroservice"}
     elif r["purchase"]["refunded"]:
        return {"verification": False, "message":f"Cannot verify refunded product keys - {license_key}"}
     else:
