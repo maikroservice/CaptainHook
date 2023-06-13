@@ -53,11 +53,11 @@ async def joined(ctx, member: discord.Member):
 
 @bot.command(pass_context=True)
 async def verify(ctx, gumroad_key: str):
-    logger.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
+    logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
-    if gumroad_key_verified:
+    if gumroad_key_verified["verification"]:
         #role = get(message.server.roles, name='SOC Analyst 101')
         guild = bot.get_guild(DISCORD_GUILD_ID)
         soc101 = guild.get_role(DISCORD_SOC101_ROLE_ID)
@@ -65,15 +65,15 @@ async def verify(ctx, gumroad_key: str):
 
         await member.add_roles(soc101)
         # https://docs.replit.com/tutorials/python/discord-role-bot
-    # add user to SOC Analyst 101 Discord Group
-    # TODO: read "group" from verification product
+        # add user to SOC Analyst 101 Discord Group
+        # TODO: read "group" from verification product
         #roles = [discord.utils.get(server.roles)]
         #member = await server.fetch_member(message.author.id)
 
         # if all went well the verification is complete and we can share that with the user
-        await ctx.reply(f'`Verification completed - you have a new role now - SOC Analyst 101')
 
-    await ctx.reply(f'Verification failed - License-Key used: {gumroad_key}')
+
+    await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
 
 async def on_message(message):
     if message.content.startswith('!reboot'):
