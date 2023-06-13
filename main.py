@@ -8,6 +8,7 @@ from verify_gumroad import verify_gumroad_license
 from digital_ocean import *
 import logging
 
+
 load_dotenv()
 
 DIGITALOCEAN_TOKEN = os.getenv("DIGITALOCEAN_TOKEN")
@@ -52,7 +53,7 @@ async def joined(ctx, member: discord.Member):
 
 @bot.command(pass_context=True)
 async def verify(ctx, gumroad_key: str):
-    logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
+    logger.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
@@ -72,7 +73,7 @@ async def verify(ctx, gumroad_key: str):
         # if all went well the verification is complete and we can share that with the user
         await ctx.reply(f'`Verification completed - you have a new role now - SOC Analyst 101')
 
-        ctx.reply(f'Verification failed - License-Key used: {gumroad_key}')
+    await ctx.reply(f'Verification failed - License-Key used: {gumroad_key}')
 
 async def on_message(message):
     if message.content.startswith('!reboot'):
