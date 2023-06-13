@@ -72,7 +72,7 @@ async def verify(ctx, gumroad_key: str):
 
         # if all went well the verification is complete and we can share that with the user
 
-
+    logging.info(gumroad_key_verified)
     await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
 
 async def on_message(message):
