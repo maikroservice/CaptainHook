@@ -1,12 +1,13 @@
 import requests
-
+import logging
 def verify_gumroad_license(GUMROAD_PRODUCT_ID, license_key):
-    r = requests.post("https://api.gumroad.com/v2/licenses/verify",
+   r = requests.post("https://api.gumroad.com/v2/licenses/verify",
                       data={"product_id":GUMROAD_PRODUCT_ID, 
                             "license_key":license_key}).json()
-    print(r)
-    if r["success"] and (r["uses"] > 1): 
-       return "Key already used - contact @maikroservice"
-    #if not r["uses"]:
-    #    return False
-    return r["success"] and not r["purchase"]["refunded"]
+   logging.debug(f'license key: {license_key} - response: {r}')
+   if r["success"] and (r["uses"] > 1): 
+   
+      return "Key already used - contact @maikroservice"
+   #if not r["uses"]:
+   #    return False
+   return r["success"] and not r["purchase"]["refunded"]
