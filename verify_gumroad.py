@@ -7,8 +7,8 @@ def verify_gumroad_license(GUMROAD_PRODUCT_ID, license_key):
     logging.info(f'license key: {license_key} - response: {r}')
     if r["success"] and (r["uses"] > 1): 
        return {"verification": False, "message":f"Key ({license_key}) already used - contact @maikroservice"}
-    #if not r["uses"]:
-    #    return False
+    elif not r["uses"]:
+        return {"verification":False, "message":f"Key ({license_key}) could not be verified, check the key in gumroad"}
     elif r["purchase"]["refunded"]:
        return {"verification": False, "message":f"Cannot verify refunded product keys - {license_key}"}
     else:
