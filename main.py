@@ -53,7 +53,10 @@ async def joined(ctx, member: discord.Member):
 
 @bot.command(pass_context=True)
 async def verify(ctx, gumroad_key: str):
-    if not gumroad_key:
+    # this is super ugly error handling but it should work
+    try:
+        _ = gumroad_key
+    except MissingRequiredArgument:
         return await ctx.reply(f'Verification needs a key - use !verify <YOUR_KEY_HERE>')
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     print(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
@@ -76,6 +79,7 @@ async def verify(ctx, gumroad_key: str):
         # if all went well the verification is complete and we can share that with the user
 
     logging.info(gumroad_key_verified)
+    print(gumroad_key_verified)
     await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
 
 async def on_message(message):
