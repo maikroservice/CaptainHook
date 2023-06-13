@@ -7,7 +7,6 @@ import os
 from verify_gumroad import verify_gumroad_license
 from digital_ocean import *
 import logging
-from discord.ext.commands.errors import MissingRequiredArgument
 
 load_dotenv()
 
