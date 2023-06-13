@@ -53,6 +53,8 @@ async def joined(ctx, member: discord.Member):
 
 @bot.command(pass_context=True)
 async def verify(ctx, gumroad_key: str):
+    if not gumroad_key:
+        return await ctx.reply(f'Verification needs a key - use !verify <YOUR_KEY_HERE>')
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     print(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
