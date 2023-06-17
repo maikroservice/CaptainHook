@@ -57,6 +57,12 @@ async def joined(ctx, member: discord.Member):
     """Says when a member joined."""
     await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
+@bot.event
+async def on_member_join(member):
+    logging.debug(f"{member.name} joined -  {message}")
+    await member.create_dm()
+    message = f'Hi {member.name}, welcome to the Purple Team Hacking Club. If you bought the Practical SOC Analyst 101 course, you should be able to verify your License Key (get them here: https://app.gumroad.com/d/8dada12a842072e0e2bc3199cc0791bc at the very bottom, or click on Receipt -> View Receipt )  with a whisper to @CaptainHook using the following command: !verify <LICENSE_KEY_HERE> - once that is done you will gain access to a hidden course area and the practical-soc-analyst-101 channel'
+    await member.dm_channel.send(message)
 
 @bot.command()
 async def verify(ctx, gumroad_key: str):
