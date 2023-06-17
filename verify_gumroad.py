@@ -3,6 +3,8 @@ import logging
 import sys
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
+#TODO: we should rewrite the function according to this link
+#https://discordpy.readthedocs.io/en/stable/faq.html#how-do-i-make-a-web-request
 def verify_gumroad_license(GUMROAD_PRODUCT_ID, license_key):
     r = requests.post("https://api.gumroad.com/v2/licenses/verify",
                       data={"product_id":GUMROAD_PRODUCT_ID, 
