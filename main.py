@@ -68,11 +68,14 @@ async def on_member_join(member):
 
 @bot.command()
 async def verify(ctx, gumroad_key: str):
+    wrong_key_format = False
     
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     if gumroad_key.startswith("<"):
+        wrong_key_format = True
         return await ctx.reply(f'You need to remove the `< and >` from your message')
-    gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
+    else:
+        gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
     if gumroad_key_verified["verification"] == True:
@@ -90,7 +93,7 @@ async def verify(ctx, gumroad_key: str):
 
         # if all went well the verification is complete and we can share that with the user
 
-    else:
+    elif not wrong_key_format:
         logging.info(gumroad_key_verified)
         
         await ctx.reply(f'Verification {gumroad_key_verified["verification"]} - {gumroad_key_verified["message"]}')
