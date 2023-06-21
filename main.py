@@ -70,7 +70,8 @@ async def on_member_join(member):
 async def verify(ctx, gumroad_key: str):
     
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
-    
+    if gumroad_key.startswith("<"):
+        return await ctx.reply(f'You need to remove the `< and >` from your message')
     gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
         
