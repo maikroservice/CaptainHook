@@ -78,6 +78,8 @@ async def verify(ctx, gumroad_key: str):
         
         
     if gumroad_key_verified["verification"] == True:
+        # Key verified, now we can add the role to the message author
+
         #role = get(message.server.roles, name='SOC Analyst 101')
         guild = bot.get_guild(DISCORD_GUILD_ID)
         soc101 = guild.get_role(DISCORD_SOC101_ROLE_ID)
@@ -103,6 +105,8 @@ async def verify_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         return await ctx.reply(f'Verification needs a key - use !verify <YOUR_KEY_HERE>')
 
+
+# digitalocean stuff below
 async def on_message(message):
     if message.content.startswith('!reboot'):
         _, droplet_id = message.content.split(" ")
