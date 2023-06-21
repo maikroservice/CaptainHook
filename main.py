@@ -71,8 +71,8 @@ async def verify(ctx, gumroad_key: str):
     logging.info(f'{ctx.author} ({ctx.author.id}), tried to verify with {gumroad_key}')
     # if someone did not to remove the `<` or `>` from the key, we tell them to do so
     if gumroad_key.startswith("<") or gumroad_key.endswith(">"):
-        gumroad_key_verified = {"verification":False, 
-                                "message":"You need to remove the `< and >` from your message"}
+        gumroad_key_verified = {"verification": False, 
+                                "message": "You need to remove the `< and >` from your message"}
     else:
         gumroad_key_verified = verify_gumroad_license(GUMROAD_PRODUCT_ID, gumroad_key)
         
